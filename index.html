@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La tentación del Sabor</title>
+<meta name="description" content="Hamburguesas, pizzas, milanesas, sándwiches, empanadas, panchos y papas fritas. Muy pronto abrimos.">
+<link rel="icon" href="img/logo-chico.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+/* Paleta: los colores del logo ordenados como una combinación de Sanzo Wada (1930):
+   crema de papel, naranja caqui, bermellón, mostaza, marrón tinta y un verde lechuga de acento. */
+:root{
+  --crema:#F3DFC1; --papel:#FBF1E1; --arena:#EBCFA6;
+  --naranja:#F39A1E; --mostaza:#F8B52C; --bermellon:#E2442A; --rojo:#B5301D;
+  --tinta:#2B1910; --cafe:#6E3B1C; --lechuga:#6BA63A; --gris:#8A6E57;
+  --cinta:#FFC51A;
+  --disp:'Luckiest Guy', 'Arial Black', sans-serif;
+  --txt:'Baloo 2', system-ui, sans-serif;
+  --r:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--txt);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* ── barra ── */
+.barra{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--crema) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid color-mix(in srgb,var(--naranja) 35%,transparent)}
+.barra .wrap{display:flex;align-items:center;gap:18px;height:66px}
+.barra .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.barra .logo img{height:50px;width:auto}
+.barra nav{margin-left:auto;display:flex;gap:6px}
+.barra nav a{text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;color:var(--cafe)}
+.barra nav a:hover{background:var(--papel);color:var(--bermellon)}
+.pronto-chip{font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;border-radius:999px;background:var(--tinta);color:var(--cinta);white-space:nowrap}
+@media (max-width:720px){.barra nav{display:none}.pronto-chip{margin-left:auto}}
+
+/* ── portada ── */
+.portada{position:relative;overflow:hidden;padding:8px 0 40px;background:
+  radial-gradient(60% 50% at 50% 34%, #FFE7B8 0%, transparent 70%),
+  radial-gradient(90% 60% at 50% 110%, color-mix(in srgb,var(--naranja) 30%,transparent), transparent 70%), var(--crema)}
+.portada .sol{position:absolute;left:50%;top:-30%;width:150vmax;height:150vmax;transform:translateX(-50%);background:repeating-conic-gradient(from 0deg, color-mix(in srgb,var(--mostaza) 16%,transparent) 0 6deg, transparent 6deg 18deg);mask:radial-gradient(circle, #000 18%, transparent 52%);-webkit-mask:radial-gradient(circle, #000 18%, transparent 52%);animation:gira 90s linear infinite;pointer-events:none}
+@keyframes gira{to{transform:translateX(-50%) rotate(360deg)}}
+.escena{position:relative;height:min(58vh,560px);min-height:360px}
+.escena canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.escena .respaldo{position:absolute;left:50%;top:50%;width:min(420px,70vw);transform:translate(-50%,-50%)}
+.escena .pista{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);white-space:nowrap;font-weight:700;font-size:.8rem;color:var(--gris);letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.nombre{width:min(640px,88vw);margin:14px auto 0;position:relative;filter:drop-shadow(0 6px 0 rgba(110,59,28,.18))}
+.bajada{text-align:center;font-weight:600;font-size:clamp(1.05rem,2.4vw,1.3rem);color:var(--cafe);margin:10px auto 0;max-width:40ch}
+.comidas{position:relative;display:flex;justify-content:center;align-items:flex-end;margin:22px auto 0;height:clamp(150px,24vw,250px)}
+.comidas img{width:clamp(170px,30vw,330px);aspect-ratio:4/3;object-fit:cover;border-radius:50%;
+  mask:radial-gradient(closest-side, #000 62%, transparent 100%);-webkit-mask:radial-gradient(closest-side, #000 62%, transparent 100%);
+  transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.comidas img:nth-child(1){transform:translateX(18%) rotate(-6deg)}
+.comidas img:nth-child(2){transform:translateY(-14%) scale(1.08);z-index:1}
+.comidas img:nth-child(3){transform:translateX(-18%) rotate(6deg)}
+.comidas:hover img:nth-child(1){transform:translateX(8%) rotate(-10deg) translateY(-4%)}
+.comidas:hover img:nth-child(3){transform:translateX(-8%) rotate(10deg) translateY(-4%)}
+.arco{width:min(820px,92%);height:6px;margin:-6px auto 0;border-radius:99px;background:linear-gradient(90deg,transparent,var(--naranja) 12%,var(--naranja) 88%,transparent)}
+.acciones{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:800 1rem var(--txt);text-decoration:none;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;transition:transform .2s, box-shadow .2s}
+.btn.lleno{background:var(--bermellon);color:#fff;box-shadow:0 6px 0 var(--rojo)}
+.btn.lleno:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--rojo)}
+.btn.borde{background:var(--papel);color:var(--tinta);box-shadow:0 6px 0 var(--arena)}
+
+@keyframes corre{to{transform:translateX(-50%)}}
+
+/* ── carta ── */
+.carta{padding:64px 0 30px}
+.titulo{font-family:var(--disp);font-weight:400;font-size:clamp(2.5rem,6.4vw,4rem);line-height:1;letter-spacing:.02em;margin:0;color:var(--bermellon);text-shadow:3px 4px 0 var(--tinta);-webkit-text-stroke:1px var(--tinta)}
+.sub{margin:8px 0 0;color:var(--gris);font-weight:600}
+/* categorías: una fotito redonda de cada cosa, con el nombre abajo */
+.chips{position:sticky;top:66px;z-index:30;display:flex;gap:6px;overflow-x:auto;padding:14px 2px 12px;margin:18px -2px 0;background:linear-gradient(var(--crema) 82%,transparent);scrollbar-width:none;scroll-snap-type:x proximity}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;width:92px;display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;scroll-snap-align:start;color:var(--cafe);font-weight:700;font-size:.82rem;line-height:1.15;text-align:center;transition:color .25s}
+.chips .ic{position:relative;width:66px;height:66px;border-radius:50%;padding:3px;background:var(--arena);transition:transform .3s cubic-bezier(.2,.8,.2,1), background .3s, box-shadow .3s}
+.chips .ic img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--crema)}
+.chips a:hover .ic{transform:translateY(-3px)}
+.chips a.on{color:var(--bermellon)}
+.chips a.on .ic{background:conic-gradient(var(--mostaza),var(--bermellon),var(--naranja),var(--mostaza));transform:translateY(-3px) scale(1.05);box-shadow:0 8px 16px -8px rgba(181,48,29,.6)}
+.grupo{padding-top:34px;scroll-margin-top:130px}
+.grupo h3{display:flex;align-items:center;gap:12px;font-family:var(--disp);font-weight:400;font-size:2.1rem;letter-spacing:.03em;margin:0 0 16px;color:var(--naranja);text-shadow:2px 3px 0 var(--tinta)}
+.grupo h3::after{content:"";flex:1;height:3px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--naranja) 0 18px,transparent 18px 28px)}
+.grilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+
+.plato{position:relative;background:var(--papel);border-radius:var(--r);padding:12px 12px 16px;box-shadow:0 2px 0 var(--arena), 0 18px 30px -18px rgba(110,59,28,.45);
+  transform-style:preserve-3d;transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;will-change:transform}
+.plato:hover{box-shadow:0 2px 0 var(--arena), 0 28px 40px -18px rgba(110,59,28,.55)}
+.plato .foto{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:var(--crema);transform:translateZ(30px)}
+.plato .foto img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.plato:hover .foto img{transform:scale(1.06)}
+.plato .tag{position:absolute;top:10px;left:10px;font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--bermellon);color:#fff}
+.plato h4{margin:12px 4px 2px;font-family:var(--disp);font-weight:400;font-size:1.25rem;letter-spacing:.03em;line-height:1.15;color:var(--tinta);transform:translateZ(18px)}
+.plato .ing{margin:0 4px;color:var(--gris);font-size:.95rem;min-height:2.9em;transform:translateZ(12px)}
+.precio{margin:12px 4px 0;transform:translateZ(22px)}
+.precio b{display:block;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cafe);margin:0 0 6px 2px}
+.precio .monto{position:relative;height:50px;border-radius:14px;background:var(--crema);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.precio i{font-style:normal;font-weight:800;font-size:1.5rem;filter:blur(6px);user-select:none;color:var(--rojo)}
+.cinta{position:absolute;left:-12%;right:-12%;top:50%;height:30px;transform:translateY(-50%) rotate(-5deg);display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(var(--tinta) 0 4px,transparent 4px calc(100% - 4px),var(--tinta) calc(100% - 4px)), var(--cinta);
+  font:800 .82rem var(--txt);letter-spacing:.14em;color:var(--tinta);white-space:nowrap;box-shadow:0 3px 6px rgba(0,0,0,.18)}
+.cinta::before,.cinta::after{content:"";width:34px;height:100%;background:repeating-linear-gradient(-45deg,var(--tinta) 0 6px,var(--cinta) 6px 12px)}
+.plato.secreto .foto img{filter:brightness(.85) contrast(1.1)}
+.plato.secreto .foto::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font:400 5.5rem var(--disp);color:var(--mostaza);text-shadow:0 0 30px rgba(243,154,30,.8);animation:late 2.4s ease-in-out infinite}
+@keyframes late{50%{transform:scale(1.12);opacity:.75}}
+.bebidas .plato .foto{background:#fff}
+
+/* ── muy pronto ── */
+.pronto{position:relative;margin:70px 0 0;padding:170px 16px;text-align:center;overflow:hidden;background:var(--bermellon);color:#fff}
+.pronto .cruz{position:absolute;left:-10%;right:-10%;height:54px;display:flex;align-items:center;gap:30px;white-space:nowrap;overflow:hidden;
+  background:linear-gradient(var(--tinta) 0 6px,transparent 6px calc(100% - 6px),var(--tinta) calc(100% - 6px)), var(--cinta);color:var(--tinta);font:800 1.3rem var(--txt);letter-spacing:.14em;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+.pronto .cruz span{animation:corre 22s linear infinite}
+.pronto .c1{top:13%;transform:rotate(-5deg)}
+.pronto .c2{bottom:11%;transform:rotate(4deg)}
+.pronto .c2 span{animation-direction:reverse}
+.pronto h2{position:relative;z-index:2;font-family:var(--disp);font-weight:400;font-size:clamp(2.8rem,9vw,6rem);line-height:1;letter-spacing:.02em;margin:0;color:var(--cinta);text-shadow:4px 6px 0 var(--tinta)}
+.pronto p{position:relative;z-index:2;font-weight:700;font-size:1.15rem;margin:16px auto 0;max-width:34ch}
+footer{position:relative;overflow:hidden;background:var(--tinta);color:var(--crema);padding:56px 0 46px;text-align:center}
+footer::before{content:"";position:absolute;left:50%;top:44%;width:min(620px,120vw);aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(243,154,30,.38),rgba(226,68,42,.12) 55%,transparent);pointer-events:none}
+footer img{position:relative;width:min(340px,78vw);margin:0 auto 14px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.45));animation:flota 5s ease-in-out infinite}
+@keyframes flota{50%{transform:translateY(-8px) rotate(-1.5deg)}}
+footer p{position:relative;margin:0;font:400 1.2rem var(--disp);letter-spacing:.06em;color:var(--cinta)}
+footer small{position:relative;display:block;margin-top:6px;opacity:.6;font-size:.85rem}
+
+/* ── carrito ── */
+.agregar{margin:12px 4px 0;width:calc(100% - 8px);display:flex;align-items:center;justify-content:center;gap:8px;font:400 1.05rem var(--disp);letter-spacing:.05em;color:#fff;background:var(--bermellon);border:0;border-radius:999px;padding:11px 14px 9px;cursor:pointer;box-shadow:0 5px 0 var(--rojo);transform:translateZ(26px);transition:transform .15s, box-shadow .15s}
+.agregar svg{width:22px;height:22px}
+.agregar:hover{transform:translateZ(26px) translateY(-2px);box-shadow:0 7px 0 var(--rojo)}
+.agregar:active{transform:translateZ(26px) translateY(3px);box-shadow:0 2px 0 var(--rojo)}
+.carro{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:60;width:104px;height:104px;border:0;padding:0;background:none;cursor:pointer;visibility:hidden;transform-origin:70% 90%}
+.carro.on{visibility:visible}
+.carro .carga{position:absolute;left:28%;right:9%;top:2%;height:32%;display:flex;justify-content:center;align-items:flex-end;pointer-events:none}
+.carro .carga img{width:52%;aspect-ratio:1;object-fit:cover;border-radius:50%;margin:0 -10%;border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.25)}
+.carro svg{position:relative;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 8px 10px rgba(60,25,8,.35))}
+.carro .rueda{transform-box:fill-box;transform-origin:center}
+.carro.anda .rueda{animation:rueda .35s linear infinite}
+@keyframes rueda{to{transform:rotate(360deg)}}
+.carro .num{position:absolute;top:-4px;right:-2px;min-width:30px;height:30px;padding:0 7px;border-radius:999px;background:var(--tinta);color:var(--cinta);font:400 1.05rem/30px var(--disp);box-shadow:0 0 0 3px var(--crema)}
+.corredor{position:fixed;left:0;z-index:66;pointer-events:none;will-change:transform;filter:drop-shadow(0 12px 14px rgba(60,25,8,.35))}
+.corredor svg{position:relative;width:100%;height:100%;overflow:visible}
+.corredor .rueda{transform-box:fill-box;transform-origin:center;animation:rueda .3s linear infinite}
+.corredor .carga{position:absolute;left:27%;right:10%;top:4%;height:30%;display:flex;justify-content:center;align-items:flex-end}
+.corredor .carga img{width:58%;aspect-ratio:1;object-fit:cover;border-radius:50%;margin:0 -12%;border:2px solid #fff;box-shadow:0 3px 6px rgba(0,0,0,.25)}
+.puf{position:fixed;left:0;top:0;z-index:72;width:80px;height:80px;border-radius:50%;border:5px solid #FFC51A;pointer-events:none}
+.estrella{position:fixed;left:0;top:0;z-index:72;font-size:20px;line-height:1;pointer-events:none;text-shadow:0 0 2px #2B1910,0 1px 0 #2B1910}
+.rastro{position:fixed;left:0;top:0;z-index:69;width:10px;height:10px;border-radius:50%;background:#F39A1E;pointer-events:none}
+.vuelo{position:fixed;left:0;top:0;z-index:70;pointer-events:none;will-change:transform}
+.vuelo .pieza{position:absolute;inset:0;background-size:cover;background-position:center;border-radius:22%;
+  -webkit-mask:radial-gradient(closest-side,#000 72%,transparent);mask:radial-gradient(closest-side,#000 72%,transparent)}
+.chispa{position:fixed;left:0;top:0;z-index:71;pointer-events:none;will-change:transform,opacity}
+.mas1{position:fixed;z-index:72;pointer-events:none;font:400 1.4rem var(--disp);color:var(--bermellon);text-shadow:2px 2px 0 var(--tinta)}
+.pedido{border:0;padding:0;margin:auto 0 0 auto;width:min(400px,100vw);max-width:100vw;height:100%;max-height:100%;background:var(--papel);color:var(--tinta);box-shadow:-20px 0 50px rgba(43,25,16,.3)}
+.pedido[open]{display:flex;flex-direction:column;animation:entra .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes entra{from{transform:translateX(100%)}}
+.pedido::backdrop{background:rgba(43,25,16,.45)}
+.pedido header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 12px;border-bottom:3px dashed var(--arena)}
+.pedido h2{margin:0;font:400 1.8rem var(--disp);letter-spacing:.03em;color:var(--bermellon);text-shadow:2px 2px 0 var(--tinta)}
+.pedido .cerrar{width:42px;height:42px;border-radius:50%;border:2px solid var(--arena);background:var(--crema);font-size:1.3rem;cursor:pointer;color:var(--tinta)}
+.pedido ul{list-style:none;margin:0;padding:10px 20px;overflow:auto;flex:1}
+.pedido li{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--arena)}
+.pedido li img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.pedido li b{display:block;font-weight:800;line-height:1.2}
+.pedido li span{font-size:.85rem;color:var(--gris)}
+.cant{display:flex;align-items:center;gap:6px}
+.cant button{width:32px;height:32px;border-radius:50%;border:2px solid var(--arena);background:var(--crema);font:800 1.1rem var(--txt);cursor:pointer;color:var(--tinta)}
+.cant output{min-width:20px;text-align:center;font-weight:800}
+.pedido .vacio{padding:40px 10px;text-align:center;color:var(--gris)}
+.pedido footer{position:static;background:none;color:inherit;padding:16px 20px 22px;border-top:3px dashed var(--arena);text-align:left;overflow:visible}
+.pedido footer::before{display:none}
+.pedido .datos{display:grid;gap:8px;margin:0 0 12px}
+.pedido .datos label{display:grid;gap:3px;font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--cafe)}
+.pedido .datos input{font:600 1rem var(--txt);padding:10px 12px;border-radius:12px;border:2px solid var(--arena);background:#fff;color:var(--tinta)}
+.pedido .datos input:focus{outline:none;border-color:var(--naranja)}
+.pedido .enviar{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 16px 12px;border-radius:999px;background:#25D366;color:#fff;text-decoration:none;font:400 1.15rem var(--disp);letter-spacing:.04em;box-shadow:0 5px 0 #179447;transition:transform .15s, box-shadow .15s}
+.pedido .enviar svg{width:22px;height:22px}
+.pedido .enviar:hover{transform:translateY(-2px);box-shadow:0 7px 0 #179447}
+.pedido .enviar[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.pedido .nota-precio{margin:8px 0 10px;text-align:center;font-size:.85rem;color:var(--gris)}
+.pedido .vaciar{border:0;background:none;color:var(--gris);font:700 .95rem var(--txt);text-decoration:underline;cursor:pointer;padding:0}
+.aparece{opacity:0;transform:translateY(26px);transition:opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1)}
+.aparece.ve{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  *:not(.carro *):not(.carro){animation:none!important;transition:none!important}
+  .aparece{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="barra">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="La tentación del Sabor, inicio"><img src="img/logo-chico.png" alt="La tentación del Sabor" width="450" height="455"></a>
+    <nav aria-label="Secciones">
+      <a href="#carta">Carta</a>
+      <a href="#bebidas">Bebidas</a>
+      <a href="#pronto">Apertura</a>
+    </nav>
+    <span class="pronto-chip">Muy pronto</span>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="portada">
+    <div class="sol" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="escena" id="escena" role="img" aria-label="La hamburguesa del logo en 3D, con el pulgar arriba, girando delante de un fuego">
+        <img class="respaldo" id="respaldo" src="img/logo.png" alt="" hidden>
+        <span class="pista">Arrastrala para girarla</span>
+      </div>
+      <img class="nombre" src="img/nombre.png" alt="La tentación del Sabor" width="900" height="362">
+      <p class="bajada">Hamburguesas, pizzas, milanesas, empanadas, panchos y papas fritas. Todo casero, todo con fuego.</p>
+      <div class="comidas" aria-hidden="true">
+        <img src="img/menu/pancho-simple.webp" alt="">
+        <img src="img/menu/pizza-muzzarella.webp" alt="">
+        <img src="img/menu/hamburguesa-doble.webp" alt="">
+      </div>
+      <div class="arco"></div>
+      <div class="acciones">
+        <a class="btn lleno" href="#carta">Ver la carta</a>
+        <a class="btn borde" href="#pronto">¿Cuándo abrimos?</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="carta" id="carta">
+    <div class="wrap">
+      <h2 class="titulo">Nuestra carta</h2>
+      <p class="sub">Los precios están bajo llave hasta el día de la apertura.</p>
+      <nav class="chips" id="chips" aria-label="Categorías"></nav>
+      <div id="grupos"></div>
+    </div>
+  </section>
+
+  <section class="pronto" id="pronto">
+    <div class="cruz c1" aria-hidden="true"><span id="cinta1"></span></div>
+    <div class="cruz c2" aria-hidden="true"><span id="cinta2"></span></div>
+    <h2>Muy pronto<br>se viene</h2>
+    <p>Estamos prendiendo el fuego. Muy pronto vas a poder probar La tentación del Sabor.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo.png" alt="La tentación del Sabor" width="900" height="909" loading="lazy">
+    <p>Muy pronto · Se viene</p>
+    <small>La tentación del Sabor</small>
+  </div>
+</footer>
+
+<button class="carro" id="carro" type="button" aria-label="Ver mi pedido">
+  <div class="carga" id="carro-carga"></div>
+  <svg viewBox="0 0 120 110" aria-hidden="true">
+    <path d="M6 14h16l14 58h62l12-42H30" fill="none" stroke="#2B1910" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="carro-canasta" d="M30 30h80l-12 42H40z" fill="#E2442A" stroke="#2B1910" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M52 34l-3 34M70 34v34M88 34l3 34M36 50h66" stroke="#B5301D" stroke-width="4" stroke-linecap="round"/>
+    <path d="M36 32h72" stroke="#F8B52C" stroke-width="5" stroke-linecap="round"/>
+    <g class="rueda"><circle cx="46" cy="92" r="9" fill="#F8B52C" stroke="#2B1910" stroke-width="6"/><path d="M40 92h12M46 86v12" stroke="#2B1910" stroke-width="2.5"/></g>
+    <g class="rueda"><circle cx="90" cy="92" r="9" fill="#F8B52C" stroke="#2B1910" stroke-width="6"/><path d="M84 92h12M90 86v12" stroke="#2B1910" stroke-width="2.5"/></g>
+  </svg>
+  <span class="num" id="carro-num">0</span>
+</button>
+<dialog class="pedido" id="pedido" aria-labelledby="pedido-t">
+  <header><h2 id="pedido-t">Mi pedido</h2><button class="cerrar" type="button" id="pedido-x" aria-label="Cerrar">✕</button></header>
+  <ul id="pedido-lista"></ul>
+  <footer>
+    <div class="datos">
+      <label><span>Tu nombre</span><input id="pedido-nombre" autocomplete="name" placeholder="Opcional"></label>
+      <label><span>Nota</span><input id="pedido-nota" placeholder="Ej: sin cebolla, retiro en el local"></label>
+    </div>
+    <a class="enviar" id="pedido-enviar" href="#" target="_blank" rel="noopener" aria-disabled="true">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.2a6.8 6.8 0 0 0-5.9 10.2L1.2 14.8l3.5-.9A6.8 6.8 0 1 0 8 1.2Zm0 12.3a5.5 5.5 0 0 1-2.8-.8l-.2-.1-2 .5.5-2-.1-.2A5.5 5.5 0 1 1 8 13.5Z"/></svg>
+      Enviar pedido por WhatsApp</a>
+    <p class="nota-precio">Te confirmamos precio y demora por WhatsApp.</p>
+    <button class="vaciar" type="button" id="pedido-vaciar">Vaciar pedido</button>
+  </footer>
+</dialog>
+<p class="sr" id="anuncio" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></p>
+
+<script>
+/* ── la carta ── */
+const CARTA = [
+  { id: 'hamburguesas', foto: 'hamburguesa-doble', t: 'Hamburguesas', items: [
+    ['hamburguesa-simple', 'Hamburguesa simple', 'Mayonesa, tomate y lechuga.'],
+    ['hamburguesa-doble', 'Hamburguesa doble', 'Tomate, lechuga, huevo, queso y jamón.'],
+    ['hamburguesa-tropical', 'Hamburguesa tropical', 'Mayonesa, cheddar, aros de cebolla, panceta y morrón.'],
+    ['mistery-burger', 'Mistery Burger', '¿?¿?¿? Ingredientes secretos. Solo los valientes.', 'secreto'],
+  ]},
+  { id: 'pizzas', foto: 'pizza-muzzarella', t: 'Pizzas', items: [
+    ['pizza-completa', 'Pizza completa', 'Jamón y morrón.'],
+    ['pizza-muzzarella', 'Pizza de muzzarella', 'La clásica, con aceitunas.'],
+    ['pizza-pollo', 'Pizza de pollo', 'Pollo desmenuzado sobre muzza.'],
+    ['pizza-napolitana', 'Pizza napolitana', 'Tomate, ajo y perejil.'],
+    ['pizza-calabresa', 'Pizza de calabresa', 'Calabresa en rodajas sobre muzza.'],
+    ['pizza-jamon-huevo', 'Pizza de jamón y huevo', 'Jamón y huevo picado.'],
+    ['pizza-fugazzeta', 'Pizza fugazzeta', 'Rellena de queso y cebolla arriba.'],
+    ['pizza-tentacion', 'Pizza tentación', 'Tomate, jamón y huevo. La de la casa.', 'de la casa'],
+  ]},
+  { id: 'milanesas', foto: 'milanesa-napolitana', t: 'Milanesas al plato', items: [
+    ['milanesa-al-plato', 'Milanesa al plato', 'Con puré de papas, papas fritas o ensalada.'],
+    ['milanesa-napolitana', 'Milanesa napolitana', 'Salsa, jamón y muzzarella gratinada.'],
+    ['milanesa-fugazzeta', 'Milanesa fugazzeta', 'Muzzarella gratinada y cebolla.'],
+  ]},
+  { id: 'sandwiches', foto: 'sandwich-milanesa-completo', t: 'Sándwiches', items: [
+    ['sandwich-milanesa-simple', 'Sándwich de milanesa simple', 'Mayonesa, lechuga y tomate.'],
+    ['sandwich-milanesa-completo', 'Sándwich de milanesa completo', 'Mayonesa, lechuga, tomate, jamón, queso y huevo.'],
+    ['sandwich-milanesa-doble', 'Sándwich de milanesa doble', 'Doble mila, panceta, cebolla y cheddar.'],
+  ]},
+  { id: 'empanadas', foto: 'empanadas-carne', t: 'Empanadas', items: [
+    ['empanadas-jamon-queso', 'Empanadas de jamón y queso', 'Doraditas y con mucho queso.'],
+    ['empanadas-carne', 'Empanadas de carne', 'Carne cortada, huevo y verdeo.'],
+    ['empanadas-pollo', 'Empanadas de pollo', 'Pollo, morrón y cebolla.'],
+  ]},
+  { id: 'panchos', foto: 'super-pancho', t: 'Panchos', items: [
+    ['pancho-simple', 'Pancho simple', 'Salchicha, pan y aderezos.'],
+    ['pancho', 'Pancho', 'Con aderezos y papas pay.'],
+    ['super-pancho', 'Super Pancho', 'Bien largo y bien cargado.'],
+  ]},
+  { id: 'papas', foto: 'papas-gratinadas', t: 'Papas fritas crack', items: [
+    ['papas-simples', 'Papas fritas simples', 'Crocantes, con sal.'],
+    ['papas-gratinadas', 'Papas fritas gratinadas', 'Cheddar, muzza, panceta y verdeo.'],
+  ]},
+  { id: 'bebidas', foto: '../bebidas/coca-lata', t: 'Gaseosas', bebidas: true, items: [
+    ['../bebidas/coca-1l-vidrio', 'Coca-Cola 1 L', 'Botella de vidrio.'],
+    ['../bebidas/coca-15-vidrio', 'Coca-Cola 1,5 L', 'Botella de vidrio.'],
+    ['../bebidas/coca-lata', 'Coca-Cola lata', 'Bien fría.'],
+    ['../bebidas/paso-toros-lata', 'Paso de los Toros lata', 'Pomelo, bien fría.'],
+    ['../bebidas/pepsi-15', 'Pepsi 1,5 L', 'Botella de plástico.'],
+    ['../bebidas/manaos-225-cola', 'Manaos cola 2,25 L', 'Para toda la mesa.'],
+    ['../bebidas/manaos-225-naranja', 'Manaos naranja 2,25 L', 'Para toda la mesa.'],
+    ['../bebidas/manaos-600-cola', 'Manaos cola 600 ml', 'Individual.'],
+    ['../bebidas/manaos-600-naranja', 'Manaos naranja 600 ml', 'Individual.'],
+  ]},
+  { id: 'cervezas', foto: '../bebidas/brahma-lata', t: 'Cervezas', bebidas: true, items: [
+    ['../bebidas/brahma-1l', 'Brahma 1 L', 'Botella de vidrio.'],
+    ['../bebidas/quilmes-1l', 'Quilmes 1 L', 'Botella de vidrio.'],
+    ['../bebidas/brahma-lata', 'Brahma lata', 'Bien fría.'],
+    ['../bebidas/quilmes-lata', 'Quilmes lata', 'Bien fría.'],
+    ['../bebidas/corona-lata', 'Corona lata', 'Bien fría.'],
+    ['../bebidas/corona-chica', 'Corona botella chica', 'Porrón de vidrio.'],
+  ]},
+];
+const VER = '7';          // subir este número cuando cambien las fotos, así el navegador no muestra las viejas
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const cinta = '<span class="cinta" aria-hidden="true">MUY PRONTO · SE VIENE</span>';
+document.getElementById('chips').innerHTML = CARTA.map(g => `<a href="#${g.id}"><span class="ic"><img src="img/menu/${g.foto || g.items[0][0]}.webp?v=${VER}" alt="" width="60" height="60"></span><span>${esc(g.t)}</span></a>`).join('');
+const ICONO_CARRO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h3l2.6 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 7H6.2"/><circle cx="10" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/></svg>';
+document.getElementById('grupos').innerHTML = CARTA.map((g, gi) => `
+  <section class="grupo${g.bebidas ? ' bebidas' : ''}" id="${g.id}">
+    <h3>${esc(g.t)}</h3>
+    <div class="grilla">${g.items.map(([img, n, ing, tag], ii) => `
+      <article class="plato aparece${tag === 'secreto' ? ' secreto' : ''}">
+        <div class="foto"><img src="img/menu/${img}.webp?v=${VER}" alt="${esc(n)}" loading="lazy" width="900" height="675">${tag ? `<span class="tag">${esc(tag === 'secreto' ? 'Secreta' : tag)}</span>` : ''}</div>
+        <h4>${esc(n)}</h4>
+        <p class="ing">${esc(ing)}</p>
+        <div class="precio" aria-label="Precio: muy pronto se viene"><b>Precio</b><div class="monto"><i>$ 0.000</i>${cinta}</div></div>
+        <button class="agregar" type="button" data-g="${gi}" data-i="${ii}" aria-label="Agregar ${esc(n)} al carrito">${ICONO_CARRO}Agregar</button>
+      </article>`).join('')}
+    </div>
+  </section>`).join('');
+
+/* cintas de "muy pronto" */
+const txtCinta = Array(16).fill('MUY PRONTO · SE VIENE').join('  ✦  ');
+document.getElementById('cinta1').textContent = txtCinta;
+document.getElementById('cinta2').textContent = txtCinta;
+
+/* tarjetas: inclinación 3D con el mouse, y aparecen al bajar */
+const hover = matchMedia('(hover: hover)').matches, quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('.plato').forEach(p => {
+  if (!hover || quieto) return;
+  p.addEventListener('pointermove', e => {
+    const r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    p.style.transform = `perspective(900px) rotateY(${x * 12}deg) rotateX(${-y * 10}deg) translateY(-4px)`;
+  });
+  p.addEventListener('pointerleave', () => { p.style.transform = ''; });
+});
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('ve'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+document.querySelectorAll('.aparece').forEach(el => io ? io.observe(el) : el.classList.add('ve'));
+/* chip activo según la sección visible */
+const chips = [...document.querySelectorAll('#chips a')];
+const spy = 'IntersectionObserver' in window && new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) chips.forEach(c => c.classList.toggle('on', c.getAttribute('href') === '#' + e.target.id));
+}), { rootMargin: '-45% 0px -50% 0px' });
+document.querySelectorAll('.grupo').forEach(g => spy && spy.observe(g));
+
+/* ── pedido: al tocar "Agregar" cruza un carrito de derecha a izquierda, frena debajo del plato,
+      la comida cae adentro (cada producto a su manera) y el carrito sigue de largo llevándosela ── */
+const EFECTO = { hamburguesas: 'burger', sandwiches: 'burger', pizzas: 'pizza', milanesas: 'mila', empanadas: 'empanada',
+  panchos: 'pancho', papas: 'papas', bebidas: 'gaseosa', cervezas: 'cerveza' };
+const carroEl = document.getElementById('carro'), numEl = document.getElementById('carro-num');
+const pedido = document.getElementById('pedido'), lista = document.getElementById('pedido-lista'), anuncio = document.getElementById('anuncio');
+const guardado = (() => { try { return JSON.parse(localStorage.getItem('tentacion.pedido') || '[]'); } catch { return []; } })();
+let carrito = Array.isArray(guardado) ? guardado.filter(x => x && x.n && x.q > 0) : [];
+const guardar = () => { try { localStorage.setItem('tentacion.pedido', JSON.stringify(carrito)); } catch {} };
+const total = () => carrito.reduce((a, x) => a + x.q, 0);
+const pintarNum = () => { numEl.textContent = total(); carroEl.setAttribute('aria-label', `Ver mi pedido (${total()} productos)`); carroEl.classList.toggle('on', total() > 0); };
+const pintarLista = () => {
+  lista.innerHTML = carrito.length ? carrito.map((x, i) => `
+    <li><img src="${esc(x.img)}" alt=""><div><b>${esc(x.n)}</b><span>Precio: muy pronto</span></div>
+      <div class="cant"><button type="button" data-q="-1" data-k="${i}" aria-label="Quitar uno">−</button><output>${x.q}</output><button type="button" data-q="1" data-k="${i}" aria-label="Sumar uno">+</button></div></li>`).join('')
+    : '<li class="vacio">Tu pedido está vacío. Tocá “Agregar” en lo que quieras.</li>';
+  if (typeof pintarEnvio === 'function') pintarEnvio();
+};
+// el pedido sale armado por WhatsApp al local
+const WHATSAPP = '5493754498314';
+const enviarEl = document.getElementById('pedido-enviar'), nombreEl = document.getElementById('pedido-nombre'), notaEl = document.getElementById('pedido-nota');
+const armarMensaje = () => {
+  const partes = ['¡Hola La tentación del Sabor! 🍔 Quiero hacer este pedido:', '', ...carrito.map(x => `• ${x.q} × ${x.n}`)];
+  const nombre = nombreEl.value.trim(), nota = notaEl.value.trim();
+  if (nombre || nota) partes.push('');
+  if (nombre) partes.push(`A nombre de: ${nombre}`);
+  if (nota) partes.push(`Nota: ${nota}`);
+  partes.push('', '¿Me confirman precio y demora? ¡Gracias!');
+  return partes.join('\n');
+};
+const pintarEnvio = () => {
+  const hay = carrito.length > 0;
+  enviarEl.setAttribute('aria-disabled', String(!hay));
+  enviarEl.href = hay ? `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(armarMensaje())}` : '#';
+};
+[nombreEl, notaEl].forEach(el => el.addEventListener('input', pintarEnvio));
+const sumar = (n, img) => { const x = carrito.find(c => c.n === n); if (x) x.q++; else carrito.push({ n, img, q: 1 }); guardar(); pintarNum(); pintarLista(); };
+const espera = ms => new Promise(r => setTimeout(r, ms));
+const azar = (a, b) => a + Math.random() * (b - a);
+
+const golpe = () => {
+  carroEl.animate([{ transform: 'none' }, { transform: 'translateY(6px) rotate(-7deg) scale(1.1, .88)' }, { transform: 'translateY(-4px) rotate(4deg)' }, { transform: 'none' }], { duration: 460, easing: 'ease-out' });
+  numEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.6)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'ease-out' });
+};
+
+// trocitos que vuelan: papas, papitas, migas, burbujas, espuma, queso
+const ESTILO = {
+  papitas: { w: 3, h: 16, bg: '#F2C14E', br: '2px', b: '1px solid #C98A1E' },
+  papas: { w: 8, h: 30, bg: 'linear-gradient(90deg,#FFE08A,#F4B23E 60%,#D98E2B)', br: '3px', b: '1.5px solid #A8651A' },
+  migas: { w: 6, h: 6, bg: '#B56A2A', br: '50%', b: '0' },
+  burbujas: { w: 11, h: 11, bg: 'rgba(255,255,255,.25)', br: '50%', b: '2px solid rgba(255,255,255,.95)' },
+  espuma: { w: 14, h: 14, bg: '#FFF8E6', br: '50%', b: '1px solid #EBD9A8' },
+  queso: { w: 9, h: 9, bg: '#FFC233', br: '40%', b: '1px solid #E0951A' }
+};
+const trocito = tipo => {
+  const e = ESTILO[tipo], c = document.createElement('i'); c.className = 'chispa';
+  Object.assign(c.style, { width: e.w + 'px', height: e.h + 'px', background: e.bg, borderRadius: e.br, border: e.b });
+  document.body.appendChild(c); return c;
+};
+// sueltos: saltan para cualquier lado y se desvanecen
+const chispas = (x, y, tipo, n) => {
+  const sube = tipo === 'burbujas' || tipo === 'espuma';
+  for (let k = 0; k < n; k++) {
+    const c = trocito(tipo), dx = azar(-1, 1) * (sube ? 40 : 90), dy = sube ? -azar(40, 120) : -azar(40, 110), g = sube ? 0 : azar(120, 200), giro = azar(-270, 270);
+    c.animate([
+      { transform: `translate(${x}px, ${y}px) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${x + dx * .6}px, ${y + dy}px) rotate(${giro * .6}deg)`, opacity: 1, offset: .45 },
+      { transform: `translate(${x + dx}px, ${y + dy + g}px) rotate(${giro}deg) scale(.6)`, opacity: 0 }
+    ], { duration: azar(700, 1100), delay: azar(0, 120), easing: 'cubic-bezier(.3,.6,.4,1)', fill: 'backwards' }).finished.then(() => c.remove());
+  }
+};
+// a la canasta: cada trocito sale del plato y cae justo en la boca del carrito
+const aLaCanasta = (x0, y0, boca, tipo, n, demora, rango = 40) => Array.from({ length: n }, (_, k) => {
+  const c = trocito(tipo), xs = x0 + azar(-rango, rango), ys = y0 + azar(-rango * .5, rango * .5);
+  const xe = boca.x + azar(-boca.w * .22, boca.w * .22), ye = boca.y + azar(-4, 8), giro = azar(-200, 200), d = azar(480, 620);
+  const kf = [];
+  for (let i = 0; i <= 10; i++) {
+    const t = i / 10, x = xs + (xe - xs) * t, y = ys + (ye - ys) * t * t - azar(18, 30) * Math.sin(Math.PI * Math.min(1, t * 1.8));
+    kf.push({ transform: `translate(${x}px, ${y}px) rotate(${giro * t}deg)`, offset: t });
+  }
+  return c.animate(kf, { duration: d, delay: demora + k * azar(14, 34), easing: 'cubic-bezier(.45,.05,.8,.6)', fill: 'backwards' }).finished.then(() => c.remove());
+});
+
+// la caída de un plato entero: sube un poquito y cae por gravedad en la boca del carrito
+const caida = (x0, y0, x1, y1, salto, achica, extra = () => '') => {
+  const kf = [];
+  for (let k = 0; k <= 16; k++) {
+    const t = k / 16, x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * t * t - salto * Math.sin(Math.PI * Math.min(1, t * 1.6));
+    kf.push({ transform: `translate(${x}px, ${y}px) scale(${1 - (1 - achica) * Math.pow(t, 1.2)}) ${extra(t)}`, offset: t });
+  }
+  return kf;
+};
+
+// ── animación cartoon: la comida salta del plato y cae dentro del carrito de la esquina ──
+const cargaEl = document.getElementById('carro-carga');
+const asomar = (src, entrar = true) => {
+  const mini = document.createElement('img'); mini.src = src; mini.alt = '';
+  cargaEl.appendChild(mini);
+  while (cargaEl.children.length > 3) cargaEl.firstElementChild.remove();
+  if (entrar) mini.animate([{ transform: 'translateY(70%) scale(.4)' }, { transform: 'translateY(-22%) scale(1.15, .9)', offset: .6 }, { transform: 'translateY(4%) scale(.95, 1.05)', offset: .82 }, { transform: 'none' }], { duration: 480, easing: 'ease-out' });
+};
+carrito.slice(-3).forEach(x => asomar(x.img, false));
+
+// el carrito aparece saltando desde abajo, con estirón y aplastón de dibujito
+const aparecer = () => {
+  if (carroEl.classList.contains('on')) return Promise.resolve();
+  carroEl.classList.add('on');
+  return carroEl.animate([
+    { transform: 'translateY(170%) scale(.8, 1.2)' },
+    { transform: 'translateY(-34%) scale(.86, 1.18)', offset: .45 },
+    { transform: 'translateY(6%) scale(1.22, .78)', offset: .66 },
+    { transform: 'translateY(-6%) scale(.94, 1.06)', offset: .82 },
+    { transform: 'none' }
+  ], { duration: 720, easing: 'cubic-bezier(.3,.7,.3,1)' }).finished;
+};
+// se prepara: se agacha un poquito y abre la "boca"
+const preparar = () => carroEl.animate([{ transform: 'none' }, { transform: 'translateY(4px) scale(1.08, .9) rotate(-4deg)', offset: .5 }, { transform: 'translateY(-3px) scale(.97, 1.04) rotate(-6deg)' }], { duration: 380, easing: 'ease-out', fill: 'forwards' });
+// recibe el golpe: aplastón grande, rebote y vuelve a su lugar
+const recibir = () => {
+  carroEl.getAnimations().forEach(a => a.cancel());
+  carroEl.animate([
+    { transform: 'rotate(-6deg)' },
+    { transform: 'translateY(10px) scale(1.25, .72) rotate(2deg)', offset: .18 },
+    { transform: 'translateY(-16px) scale(.88, 1.14) rotate(-3deg)', offset: .45 },
+    { transform: 'translateY(3px) scale(1.07, .94)', offset: .7 },
+    { transform: 'none' }
+  ], { duration: 640, easing: 'ease-out' });
+  numEl.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.7) rotate(-10deg)' }, { transform: 'scale(1)' }], { duration: 420, easing: 'ease-out' });
+};
+// estrellitas y un "puf" al caer adentro
+const estrellas = (x, y) => {
+  const anillo = document.createElement('i'); anillo.className = 'puf'; document.body.appendChild(anillo);
+  anillo.animate([{ transform: `translate(${x - 40}px, ${y - 40}px) scale(.2)`, opacity: .9 }, { transform: `translate(${x - 40}px, ${y - 40}px) scale(1.3)`, opacity: 0 }], { duration: 480, easing: 'ease-out' }).finished.then(() => anillo.remove());
+  const colores = ['#FFC51A', '#E2442A', '#F39A1E', '#FFFFFF'];
+  for (let k = 0; k < 9; k++) {
+    const e = document.createElement('i'); e.className = 'estrella'; e.textContent = '★'; e.style.color = colores[k % colores.length];
+    document.body.appendChild(e);
+    const a = -Math.PI / 2 + azar(-1.3, 1.3), d = azar(55, 105);
+    e.animate([
+      { transform: `translate(${x}px, ${y}px) scale(.3) rotate(0deg)`, opacity: 1 },
+      { transform: `translate(${x + Math.cos(a) * d}px, ${y + Math.sin(a) * d}px) scale(1.2) rotate(${azar(-180, 180)}deg)`, opacity: 1, offset: .6 },
+      { transform: `translate(${x + Math.cos(a) * d * 1.2}px, ${y + Math.sin(a) * d * 1.2 + 26}px) scale(.4)`, opacity: 0 }
+    ], { duration: azar(560, 820), easing: 'cubic-bezier(.2,.7,.4,1)' }).finished.then(() => e.remove());
+  }
+};
+// estela de puntitos detrás de lo que vuela
+const estela = (v, ms) => {
+  const t0 = performance.now(), id = setInterval(() => {
+    if (performance.now() - t0 > ms) return clearInterval(id);
+    const q = v.getBoundingClientRect(); if (!q.width) return;
+    const p = document.createElement('i'); p.className = 'rastro'; document.body.appendChild(p);
+    p.animate([{ transform: `translate(${q.left + q.width / 2 - 5}px, ${q.top + q.height / 2 - 5}px) scale(1)`, opacity: .7 }, { transform: `translate(${q.left + q.width / 2 - 5}px, ${q.top + q.height / 2 - 5}px) scale(.1)`, opacity: 0 }], { duration: 420 }).finished.then(() => p.remove());
+  }, 45);
+};
+// vuelo con arco alto, estirándose en la subida y la bajada (squash & stretch)
+const arco = (x0, y0, x1, y1, alto, fin, extra = () => '') => {
+  const kf = [];
+  for (let k = 0; k <= 20; k++) {
+    const t = k / 20, x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * t - alto * 4 * t * (1 - t);
+    const vel = Math.abs(1 - 2 * t), estira = 1 + .32 * vel, aplana = 1 - .18 * vel;
+    const anticipa = t < .1 ? `scale(${1 + 3 * t}, ${1 - 2.2 * t})` : '';
+    kf.push({ transform: `translate(${x}px, ${y}px) scale(${1 - (1 - fin) * Math.pow(t, 1.3)}) ${extra(t)} scale(${aplana}, ${estira}) ${anticipa}`, offset: t });
+  }
+  return kf;
+};
+
+const pedir = async (card, efecto, src, n) => {
+  await aparecer();
+  const foto = card.querySelector('.foto'), r = foto.getBoundingClientRect();
+  const R = carroEl.getBoundingClientRect(), boca = { x: R.left + R.width * .56, y: R.top + R.height * .3, w: R.width * .6 };
+  const cx = r.left + r.width / 2;
+  preparar();
+  // el plato se agacha (anticipación) y salta para soltar la comida
+  foto.animate([{ transform: 'translateZ(30px)' }, { transform: 'translateZ(30px) translateY(8px) scale(1.06, .9)', offset: .25 }, { transform: 'translateZ(30px) translateY(-10px) scale(.96, 1.06) rotate(-4deg)', offset: .5 }, { transform: 'translateZ(30px) rotate(2deg)', offset: .75 }, { transform: 'translateZ(30px)' }], { duration: 620, easing: 'ease-out' });
+  await espera(170);
+  const lado = Math.min(r.width, r.height) * .72, x0 = cx - lado / 2, y0 = r.top + r.height / 2 - lado / 2;
+  const x1 = boca.x - lado / 2, y1 = boca.y - lado / 2, fin = (R.width * .42) / lado;
+  const dist = Math.hypot(x1 - x0, y1 - y0), dur = Math.min(1150, 700 + dist * .45), alto = Math.max(140, Math.min(280, dist * .35));
+  const vuelan = [];
+  const plato = (tam = lado) => { const v = document.createElement('div'); v.className = 'vuelo'; v.style.width = v.style.height = tam + 'px'; document.body.appendChild(v); return v; };
+  const pieza = (v, clip) => { const p = document.createElement('div'); p.className = 'pieza'; p.style.backgroundImage = `url("${src}")`; if (clip) p.style.clipPath = clip; v.appendChild(p); return p; };
+  const vuela = (v, extra, demora = 0, desde = [x0, y0], tam = lado, sube = alto) => {
+    const o = (lado - tam) / 2;
+    const a = v.animate(arco(desde[0] + o, desde[1] + o, x1 + o, y1 + o, sube, (R.width * .42) / tam, extra), { duration: dur, delay: demora, easing: 'linear', fill: 'backwards' });
+    setTimeout(() => estela(v, dur - 120), demora);
+    vuelan.push(a.finished.then(() => v.remove())); return a;
+  };
+  const centro = v => { const q = v.getBoundingClientRect(); return [q.left + q.width / 2, q.top + q.height / 2]; };
+  if (efecto === 'papas') {                // el plato se tumba y las papas saltan en fila al carrito
+    vuelan.push(...aLaCanastaLejos(cx, r.top + r.height * .45, boca, 'papas', 16, r.width * .22, dur, alto));
+    chispas(cx, r.top + r.height * .5, 'papas', 4);
+  } else if (efecto === 'burger') {         // el pan de arriba se levanta en el aire y se vuelve a cerrar
+    const v = plato(); pieza(v, 'inset(46% 0 0 0)'); const tapa = pieza(v, 'inset(0 0 54% 0)');
+    vuela(v, k => `rotate(${Math.sin(k * 6) * 10}deg)`);
+    tapa.animate([{ transform: 'none' }, { transform: 'translateY(-42%) rotate(-16deg)', offset: .3 }, { transform: 'translateY(-30%) rotate(12deg)', offset: .6 }, { transform: 'translateY(4%) scale(1.08,.88)', offset: .88 }, { transform: 'none' }], { duration: dur, easing: 'ease-in-out' });
+    setTimeout(() => chispas(...centro(v), 'queso', 5), dur * .3);
+  } else if (efecto === 'pizza') {          // sale girando como un frisbee
+    const v = plato(); pieza(v); vuela(v, k => `rotate(${k * 720}deg) rotateX(${Math.sin(k * Math.PI) * 55}deg)`);
+  } else if (efecto === 'mila') {           // voltereta en el aire soltando migas
+    const v = plato(); pieza(v); vuela(v, k => `rotateY(${k * 360}deg)`);
+    setTimeout(() => chispas(...centro(v), 'migas', 14), dur * .3);
+  } else if (efecto === 'empanada') {       // tres empanaditas saltando una detrás de otra
+    for (const [d, s2, dx] of [[0, 1, 0], [110, .62, -.3], [210, .55, .3]]) {
+      const tam = lado * s2, v = plato(tam); pieza(v);
+      vuela(v, k => `rotate(${Math.sin(k * 9) * 18}deg)`, d, [x0 + lado * dx, y0], tam, alto + d * .3);
+    }
+  } else if (efecto === 'pancho') {         // el pancho vuela y se le escapan las papitas pay
+    const v = plato(); pieza(v); vuela(v, k => `rotate(${-20 + k * 40}deg)`);
+    vuelan.push(...aLaCanastaLejos(cx, r.top + r.height * .45, boca, 'papitas', 10, r.width * .2, dur, alto * .9));
+  } else {                                  // bebidas: dan una vuelta y largan burbujas o espuma
+    const v = plato(); pieza(v); vuela(v, k => `rotate(${k * 360}deg)`);
+    const tipo = efecto === 'cerveza' ? 'espuma' : 'burbujas';
+    for (const d of [.2, .45, .7]) setTimeout(() => chispas(...centro(v), tipo, 6), dur * d);
+  }
+  await Promise.all(vuelan);
+  recibir(); estrellas(boca.x, boca.y); asomar(src);
+  const m = document.createElement('span'); m.className = 'mas1'; m.textContent = '+1';
+  m.style.left = R.left + 'px'; m.style.top = R.top - 10 + 'px'; document.body.appendChild(m);
+  m.animate([{ transform: 'translateY(0) scale(.6)', opacity: 1 }, { transform: 'translateY(-26px) scale(1.2)', opacity: 1, offset: .4 }, { transform: 'translateY(-52px) scale(1)', opacity: 0 }], { duration: 900, easing: 'ease-out' }).finished.then(() => m.remove());
+  sumar(n, src);
+  await espera(250);
+};
+// trocitos (papas, papitas) que viajan en arco hasta el carrito de la esquina
+const aLaCanastaLejos = (x0, y0, boca, tipo, n, rango, dur, alto) => Array.from({ length: n }, (_, k) => {
+  const c = trocito(tipo), xs = x0 + azar(-rango, rango), ys = y0 + azar(-rango * .4, rango * .4);
+  const xe = boca.x + azar(-boca.w * .2, boca.w * .2), ye = boca.y + azar(-4, 6), giro = azar(-540, 540), h = alto * azar(.8, 1.15);
+  const kf = [];
+  for (let i = 0; i <= 14; i++) {
+    const t = i / 14;
+    kf.push({ transform: `translate(${xs + (xe - xs) * t}px, ${ys + (ye - ys) * t - h * 4 * t * (1 - t)}px) rotate(${giro * t}deg)`, offset: t });
+  }
+  return c.animate(kf, { duration: dur * azar(.85, 1), delay: k * azar(20, 45), easing: 'linear', fill: 'backwards' }).finished.then(() => c.remove());
+});
+
+let cola = Promise.resolve();
+document.getElementById('grupos').addEventListener('click', e => {
+  const bt = e.target.closest('.agregar'); if (!bt) return;
+  const g = CARTA[+bt.dataset.g], [img, n, , tag] = g.items[+bt.dataset.i];
+  const src = `img/menu/${img}.webp?v=${VER}`, card = bt.closest('.plato');
+  anuncio.textContent = `${n} agregado a tu pedido`;
+  bt.animate([{ transform: 'translateZ(26px) scale(1)' }, { transform: 'translateZ(26px) scale(.92)' }, { transform: 'translateZ(26px) scale(1)' }], { duration: 220 });
+  cola = cola.then(() => pedir(card, tag === 'secreto' ? 'burger' : (EFECTO[g.id] || 'burger'), src, n)).catch(() => sumar(n, src));
+});
+carroEl.addEventListener('click', () => { pintarLista(); pedido.showModal(); });
+document.getElementById('pedido-x').addEventListener('click', () => pedido.close());
+pedido.addEventListener('click', e => { if (e.target === pedido) pedido.close(); });
+lista.addEventListener('click', e => {
+  const b = e.target.closest('[data-q]'); if (!b) return;
+  const x = carrito[+b.dataset.k]; x.q += +b.dataset.q;
+  if (x.q <= 0) carrito.splice(+b.dataset.k, 1);
+  guardar(); pintarNum(); pintarLista();
+});
+document.getElementById('pedido-vaciar').addEventListener('click', () => { carrito = []; guardar(); pintarNum(); pintarLista(); });
+pintarNum();
+</script>
+
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }</script>
+<script type="module">
+/* ── La hamburguesa del logo en 3D (modelada en Blender: img/3d/hamburguesa.glb).
+   Gira sola 360° con las manos; el fuego queda fijo atrás y se mueve como llama. Se puede arrastrar. ── */
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+
+const caja = document.getElementById('escena');
+const respaldo = () => { document.getElementById('respaldo').hidden = false; };
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
+catch (e) { respaldo(); throw e; }
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+caja.prepend(renderer.domElement);
+
+const escena = new THREE.Scene();
+const camara = new THREE.PerspectiveCamera(30, 1, .1, 100);
+// sombreado de dibujo igual al de Blender: tres tonos por material (sombra cálida, base y brillo),
+// con la luz fija arriba a la izquierda: al girar, la sombra queda siempre del mismo lado
+const LUZ = new THREE.Vector3(-.62, .62, .48).normalize();
+const toon = (sombra, base, brillo) => new THREE.ShaderMaterial({
+  uniforms: { cS: { value: new THREE.Color(sombra) }, cB: { value: new THREE.Color(base) }, cL: { value: new THREE.Color(brillo) }, luz: { value: LUZ } },
+  vertexShader: `varying vec3 vN; void main(){ vN = normalize(mat3(modelMatrix) * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
+  fragmentShader: `uniform vec3 cS, cB, cL, luz; varying vec3 vN;
+    void main(){ float d = dot(normalize(vN), luz);
+      vec3 c = mix(cS, cB, smoothstep(-.06, .02, d));     // borde de sombra nítido pero sin serrucho
+      c = mix(c, cL, smoothstep(.8, .84, d));
+      gl_FragColor = vec4(c, 1.);
+      #include <colorspace_fragment>
+    }`
+});
+const plano = (hex, extra = {}) => new THREE.MeshBasicMaterial({ color: hex, ...extra });
+const MATS = {
+  'Pan': toon(0xd9802b, 0xf5a93c, 0xffcb70), 'Carne': toon(0x4c220e, 0x6e3517, 0x8a4a24),
+  'Queso': toon(0xee9a1e, 0xffc233, 0xffdd78), 'Lechuga': toon(0x4f9a2c, 0x7cc242, 0xa3db6a),
+  'Sesamo': toon(0xe8cfa0, 0xfff6e0, 0xffffff), 'Guante': toon(0xe2d5c3, 0xffffff, 0xffffff),
+  'Contorno': plano(0x2a1608), 'Cara negro': plano(0x24140a), 'Cara blanco': plano(0xffffff),
+  'Cara boca': plano(0x5a1a12), 'Cara lengua': plano(0xf0606a),
+  'Fuego rojo': plano(0xe8452c), 'Fuego naranja': plano(0xf7861f), 'Fuego amarillo': plano(0xfdb52a), 'Fuego contorno': plano(0x2a1608)
+};
+
+const personaje = new THREE.Group();     // hamburguesa, cara, manos y rayitas: gira
+const fuego = new THREE.Group();         // fuego y arco: quedan fijos atrás
+escena.add(personaje, fuego);
+const capas = {};
+
+const draco = new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/');
+new GLTFLoader().setDRACOLoader(draco).load('img/3d/hamburguesa.glb', gltf => {
+  const raiz = gltf.scene;
+  raiz.traverse(o => {
+    if (!o.isMesh) return;
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    const nuevos = mats.map(m => MATS[(m.name || '').replace(/\.\d+$/, '')] || m);
+    o.material = nuevos.length > 1 ? nuevos : nuevos[0];
+  });
+  // separar lo que gira de lo que queda fijo
+  const fijos = [];
+  raiz.traverse(o => { if (/^(Fuego|Arco)/.test(o.name) && o.parent === raiz) fijos.push(o); });
+  fijos.forEach(o => { fuego.add(o); if (o.name.startsWith('Fuego')) capas[o.name] = o; });
+  personaje.add(raiz);
+  // el fuego un poco más atrás, para que las manos no lo atraviesen al girar
+  fuego.position.z = -1.7; fuego.scale.setScalar(1.12);
+  medir();
+  caja.classList.add('lista');
+}, undefined, () => respaldo());
+
+// sombra suave en el piso
+const sombraTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'); const r = g.createRadialGradient(64, 64, 0, 64, 64, 64); r.addColorStop(0, 'rgba(90,40,10,.4)'); r.addColorStop(1, 'rgba(90,40,10,0)'); g.fillStyle = r; g.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c); })();
+const sombra = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 1.7), new THREE.MeshBasicMaterial({ map: sombraTex, transparent: true, depthWrite: false }));
+sombra.rotation.x = -Math.PI / 2; sombra.position.y = -.02; escena.add(sombra);
+
+// chispas que suben del fuego
+const N = 60, chispasG = new THREE.BufferGeometry(), pos = new Float32Array(N * 3), vel = new Float32Array(N);
+for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - .5) * 4; pos[i * 3 + 1] = 1 + Math.random() * 4.5; pos[i * 3 + 2] = -1.6 + Math.random() * .6; vel[i] = .5 + Math.random() * .9; }
+chispasG.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+const chispaTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 32; const g = c.getContext('2d'); const r = g.createRadialGradient(16, 16, 0, 16, 16, 16); r.addColorStop(0, 'rgba(255,230,140,1)'); r.addColorStop(.4, 'rgba(255,140,30,.8)'); r.addColorStop(1, 'rgba(255,80,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); })();
+escena.add(new THREE.Points(chispasG, new THREE.PointsMaterial({ size: .16, map: chispaTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })));
+
+function medir() {
+  const w = caja.clientWidth, h = caja.clientHeight;
+  renderer.setSize(w, h, false);
+  camara.aspect = w / h;
+  // que entre todo (manos y fuego) también en el celu
+  const lejos = w / h < .9 ? 17 : 12.5;
+  camara.position.set(0, 2.6, lejos);
+  camara.lookAt(0, 2.35, 0);
+  camara.updateProjectionMatrix();
+}
+addEventListener('resize', medir); medir();
+
+// girar sola + arrastrar
+let giro = 0, vGiro = .55, arrastra = false, ux = 0;
+const lento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+caja.addEventListener('pointerdown', e => { arrastra = true; ux = e.clientX; caja.setPointerCapture(e.pointerId); });
+caja.addEventListener('pointermove', e => { if (!arrastra) return; const dx = e.clientX - ux; ux = e.clientX; giro += dx * .012; vGiro = dx * .6; });
+const suelta = () => { arrastra = false; };
+caja.addEventListener('pointerup', suelta); caja.addEventListener('pointercancel', suelta);
+caja.style.touchAction = 'pan-y'; caja.style.cursor = 'grab';
+
+let visible = true, ant = performance.now();
+new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(caja);
+const cuadro = now => {
+  requestAnimationFrame(cuadro);
+  if (!visible) { ant = now; return; }
+  const dt = Math.min(.05, (now - ant) / 1000); ant = now;
+  const t = now / 1000;
+  if (!arrastra) { vGiro += ((lento ? .12 : .55) - vGiro) * dt * 1.5; giro += vGiro * dt; }
+  personaje.rotation.y = giro;
+  personaje.position.y = Math.sin(t * 1.6) * .07;
+  sombra.scale.setScalar(1 - Math.sin(t * 1.6) * .05);
+  // llamas: cada capa respira a su ritmo
+  const llama = (n, f, a) => { const o = capas[n]; if (o) { o.scale.y = 1 + Math.sin(t * f) * a; o.scale.x = 1 - Math.sin(t * f) * a * .5; } };
+  llama('Fuego contorno', 5.2, .035); llama('Fuego rojo', 5.2, .035); llama('Fuego naranja', 6.7, .06); llama('Fuego amarillo', 8.3, .09);
+  fuego.rotation.z = Math.sin(t * 2.3) * .015;
+  for (let i = 0; i < N; i++) { pos[i * 3 + 1] += vel[i] * dt; pos[i * 3] += Math.sin(t * 2 + i) * dt * .15; if (pos[i * 3 + 1] > 6) { pos[i * 3 + 1] = 1.2; pos[i * 3] = (Math.random() - .5) * 4; } }
+  chispasG.attributes.position.needsUpdate = true;
+  renderer.render(escena, camara);
+};
+requestAnimationFrame(cuadro);
+</script>
+
+</body>
+</html>
