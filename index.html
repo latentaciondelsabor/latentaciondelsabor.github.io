@@ -372,7 +372,7 @@ const CARTA = [
     ['../bebidas/corona-chica', 'Corona botella chica', 'Porrón de vidrio.'],
   ]},
 ];
-const VER = '7';          // subir este número cuando cambien las fotos, así el navegador no muestra las viejas
+const VER = '8';          // subir este número cuando cambien las fotos, así el navegador no muestra las viejas
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const cinta = '<span class="cinta" aria-hidden="true">MUY PRONTO · SE VIENE</span>';
 document.getElementById('chips').innerHTML = CARTA.map(g => `<a href="#${g.id}"><span class="ic"><img src="img/menu/${g.foto || g.items[0][0]}.webp?v=${VER}" alt="" width="60" height="60"></span><span>${esc(g.t)}</span></a>`).join('');
