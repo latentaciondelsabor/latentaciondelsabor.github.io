@@ -111,6 +111,15 @@ a{color:inherit}
 .bebidas .plato .foto{background:#fff}
 
 /* ── muy pronto ── */
+.local{padding:70px 0 10px}
+.local .grilla-local{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:22px;margin-top:22px;align-items:stretch}
+.local figure{position:relative;margin:0;border-radius:var(--r);overflow:hidden;background:var(--papel);box-shadow:0 2px 0 var(--arena),0 18px 30px -18px rgba(110,59,28,.45);transform:rotate(-1.5deg)}
+.local figure img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4}
+.local figcaption{position:absolute;left:14px;bottom:14px;padding:8px 14px 6px;border-radius:999px;background:var(--tinta);color:var(--cinta);font:400 1rem var(--disp);letter-spacing:.05em}
+.local .mapa{display:flex;flex-direction:column;gap:14px}
+.local iframe{width:100%;flex:1;min-height:320px;border:0;border-radius:var(--r);box-shadow:0 2px 0 var(--arena),0 18px 30px -18px rgba(110,59,28,.45);background:var(--papel)}
+.local .acciones-local{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:760px){.local .grilla-local{grid-template-columns:1fr}.local figure{transform:none}.local figure img{aspect-ratio:4/5}}
 .pronto{position:relative;margin:70px 0 0;padding:170px 16px;text-align:center;overflow:hidden;background:var(--bermellon);color:#fff}
 .pronto .cruz{position:absolute;left:-10%;right:-10%;height:54px;display:flex;align-items:center;gap:30px;white-space:nowrap;overflow:hidden;
   background:linear-gradient(var(--tinta) 0 6px,transparent 6px calc(100% - 6px),var(--tinta) calc(100% - 6px)), var(--cinta);color:var(--tinta);font:800 1.3rem var(--txt);letter-spacing:.14em;box-shadow:0 8px 20px rgba(0,0,0,.25)}
@@ -198,6 +207,7 @@ footer small{position:relative;display:block;margin-top:6px;opacity:.6;font-size
     <nav aria-label="Secciones">
       <a href="#carta">Carta</a>
       <a href="#bebidas">Bebidas</a>
+      <a href="#local">Ubicación</a>
       <a href="#pronto">Apertura</a>
     </nav>
     <span class="pronto-chip">Muy pronto</span>
@@ -234,6 +244,23 @@ footer small{position:relative;display:block;margin-top:6px;opacity:.6;font-size
       <p class="sub">Los precios están bajo llave hasta el día de la apertura.</p>
       <nav class="chips" id="chips" aria-label="Categorías"></nav>
       <div id="grupos"></div>
+    </div>
+  </section>
+
+  <section class="local" id="local">
+    <div class="wrap">
+      <h2 class="titulo">Dónde estamos</h2>
+      <p class="sub">Vení a conocernos: te esperamos con el fuego prendido.</p>
+      <div class="grilla-local">
+        <figure><img src="img/local.webp" alt="Frente del local de La tentación del Sabor" width="825" height="1100" loading="lazy"><figcaption>Nuestro local</figcaption></figure>
+        <div class="mapa">
+          <iframe title="Mapa de La tentación del Sabor" src="https://maps.google.com/maps?q=-27.596985,-55.3333217&amp;z=17&amp;hl=es&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="acciones-local">
+            <a class="btn lleno" href="https://www.google.com/maps/dir/?api=1&amp;destination=-27.596985,-55.3333217" target="_blank" rel="noopener">Cómo llegar</a>
+            <a class="btn borde" href="https://www.google.com/maps?q=-27.596985,-55.3333217&amp;z=17&amp;hl=es" target="_blank" rel="noopener">Abrir en Google Maps</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
