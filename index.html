@@ -100,6 +100,8 @@ a{color:inherit}
 .precio{margin:12px 4px 0;transform:translateZ(22px)}
 .precio b{display:block;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cafe);margin:0 0 6px 2px}
 .precio .monto{position:relative;height:50px;border-radius:14px;background:var(--crema);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.precio.con .monto{background:var(--tinta);justify-content:space-between;padding:0 16px}
+.precio.con strong{font:400 1.6rem var(--disp);letter-spacing:.03em;color:var(--cinta)}
 .precio i{font-style:normal;font-weight:800;font-size:1.5rem;filter:blur(6px);user-select:none;color:var(--rojo)}
 .cinta{position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;gap:10px;
   background:linear-gradient(var(--tinta) 0 4px,transparent 4px calc(100% - 4px),var(--tinta) calc(100% - 4px)), var(--cinta);
@@ -189,6 +191,9 @@ footer small{position:relative;display:block;margin-top:6px;opacity:.6;font-size
 .pedido .enviar svg{width:22px;height:22px}
 .pedido .enviar:hover{transform:translateY(-2px);box-shadow:0 7px 0 #179447}
 .pedido .enviar[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.pedido .total-pedido{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 12px;font:400 1.5rem var(--disp);color:var(--tinta)}
+.pedido .total-pedido:empty{display:none}
+.pedido .total-pedido b{font-weight:400;color:var(--bermellon)}
 .pedido .nota-precio{margin:8px 0 10px;text-align:center;font-size:.85rem;color:var(--gris)}
 .pedido .vaciar{border:0;background:none;color:var(--gris);font:700 .95rem var(--txt);text-decoration:underline;cursor:pointer;padding:0}
 .aparece{opacity:0;transform:translateY(26px);transition:opacity .7s, transform .7s cubic-bezier(.2,.8,.2,1)}
@@ -300,10 +305,11 @@ footer small{position:relative;display:block;margin-top:6px;opacity:.6;font-size
       <label><span>Tu nombre</span><input id="pedido-nombre" autocomplete="name" placeholder="Opcional"></label>
       <label><span>Nota</span><input id="pedido-nota" placeholder="Ej: sin cebolla, retiro en el local"></label>
     </div>
+    <p class="total-pedido" id="pedido-total"></p>
     <a class="enviar" id="pedido-enviar" href="#" target="_blank" rel="noopener" aria-disabled="true">
       <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.2a6.8 6.8 0 0 0-5.9 10.2L1.2 14.8l3.5-.9A6.8 6.8 0 1 0 8 1.2Zm0 12.3a5.5 5.5 0 0 1-2.8-.8l-.2-.1-2 .5.5-2-.1-.2A5.5 5.5 0 1 1 8 13.5Z"/></svg>
       Enviar pedido por WhatsApp</a>
-    <p class="nota-precio">Te confirmamos precio y demora por WhatsApp.</p>
+    <p class="nota-precio">Te confirmamos el pedido y la demora por WhatsApp.</p>
     <button class="vaciar" type="button" id="pedido-vaciar">Vaciar pedido</button>
   </footer>
 </dialog>
@@ -370,9 +376,25 @@ const CARTA = [
     ['../bebidas/quilmes-lata', 'Quilmes lata', 'Bien fría.'],
     ['../bebidas/corona-lata', 'Corona lata', 'Bien fría.'],
     ['../bebidas/corona-chica', 'Corona botella chica', 'Porrón de vidrio.'],
+    ['../bebidas/stella-lata', 'Stella Artois lata', 'Bien fría.'],
   ]},
 ];
-const VER = '8';          // subir este número cuando cambien las fotos, así el navegador no muestra las viejas
+const VER = '9';
+/* precios (en pesos). Lo que no está acá sigue con la cinta de "Muy pronto". */
+const PRECIOS = {
+  'Hamburguesa simple': 3500, 'Hamburguesa tropical': 6000, 'Hamburguesa doble': 8000, 'Mistery Burger': 10000,
+  'Pizza de muzzarella': 10000, 'Pizza tentación': 13000, 'Pizza completa': 11000, 'Pizza fugazzeta': 12000, 'Pizza de pollo': 13000,
+  'Pizza de jamón y huevo': 12000, 'Pizza de calabresa': 12000, 'Pizza napolitana': 11000,
+  'Empanadas de carne': 12000, 'Empanadas de jamón y queso': 12000,
+  'Sándwich de milanesa simple': 7500, 'Sándwich de milanesa completo': 9000, 'Sándwich de milanesa doble': 11000,
+  'Pancho simple': 2000, 'Super Pancho': 3000, 'Papas fritas simples': 4000, 'Papas fritas gratinadas': 5000,
+  'Milanesa al plato': 10000, 'Milanesa napolitana': 12000,
+  'Pepsi 1,5 L': 4000, 'Coca-Cola 1,5 L': 5000, 'Coca-Cola 1 L': 4000, 'Coca-Cola lata': 2500,
+  'Manaos cola 600 ml': 2000, 'Manaos naranja 600 ml': 2000, 'Paso de los Toros lata': 2000,
+  'Brahma 1 L': 5000, 'Quilmes 1 L': 5000, 'Brahma lata': 3000, 'Stella Artois lata': 4000,
+};
+const POR = { 'Empanadas de carne': 'la docena', 'Empanadas de jamón y queso': 'la docena' };
+const pesos = n => '$ ' + n.toLocaleString('es-AR');          // subir este número cuando cambien las fotos, así el navegador no muestra las viejas
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const cinta = '<span class="cinta" aria-hidden="true">MUY PRONTO · SE VIENE</span>';
 document.getElementById('chips').innerHTML = CARTA.map(g => `<a href="#${g.id}"><span class="ic"><img src="img/menu/${g.foto || g.items[0][0]}.webp?v=${VER}" alt="" width="60" height="60"></span><span>${esc(g.t)}</span></a>`).join('');
@@ -385,7 +407,8 @@ document.getElementById('grupos').innerHTML = CARTA.map((g, gi) => `
         <div class="foto"><img src="img/menu/${img}.webp?v=${VER}" alt="${esc(n)}" loading="lazy" width="900" height="675">${tag ? `<span class="tag">${esc(tag === 'secreto' ? 'Secreta' : tag)}</span>` : ''}</div>
         <h4>${esc(n)}</h4>
         <p class="ing">${esc(ing)}</p>
-        <div class="precio" aria-label="Precio: muy pronto se viene"><b>Precio</b><div class="monto"><i>$ 0.000</i>${cinta}</div></div>
+        ${PRECIOS[n] ? `<div class="precio con"><b>Precio${POR[n] ? ` · ${POR[n]}` : ''}</b><div class="monto"><strong>${pesos(PRECIOS[n])}</strong></div></div>`
+          : `<div class="precio" aria-label="Precio: muy pronto se viene"><b>Precio</b><div class="monto"><i>$ 0.000</i>${cinta}</div></div>`}
         <button class="agregar" type="button" data-g="${gi}" data-i="${ii}" aria-label="Agregar ${esc(n)} al carrito">${ICONO_CARRO}Agregar</button>
       </article>`).join('')}
     </div>
@@ -428,16 +451,18 @@ const total = () => carrito.reduce((a, x) => a + x.q, 0);
 const pintarNum = () => { numEl.textContent = total(); carroEl.setAttribute('aria-label', `Ver mi pedido (${total()} productos)`); carroEl.classList.toggle('on', total() > 0); };
 const pintarLista = () => {
   lista.innerHTML = carrito.length ? carrito.map((x, i) => `
-    <li><img src="${esc(x.img)}" alt=""><div><b>${esc(x.n)}</b><span>Precio: muy pronto</span></div>
+    <li><img src="${esc(x.img)}" alt=""><div><b>${esc(x.n)}</b><span>${PRECIOS[x.n] ? pesos(PRECIOS[x.n] * x.q) : 'Precio a confirmar'}</span></div>
       <div class="cant"><button type="button" data-q="-1" data-k="${i}" aria-label="Quitar uno">−</button><output>${x.q}</output><button type="button" data-q="1" data-k="${i}" aria-label="Sumar uno">+</button></div></li>`).join('')
     : '<li class="vacio">Tu pedido está vacío. Tocá “Agregar” en lo que quieras.</li>';
   if (typeof pintarEnvio === 'function') pintarEnvio();
 };
 // el pedido sale armado por WhatsApp al local
+const totalPesos = () => carrito.reduce((a, x) => a + (PRECIOS[x.n] || 0) * x.q, 0);
 const WHATSAPP = '5493754498314';
 const enviarEl = document.getElementById('pedido-enviar'), nombreEl = document.getElementById('pedido-nombre'), notaEl = document.getElementById('pedido-nota');
 const armarMensaje = () => {
-  const partes = ['¡Hola La tentación del Sabor! 🍔 Quiero hacer este pedido:', '', ...carrito.map(x => `• ${x.q} × ${x.n}`)];
+  const partes = ['¡Hola La tentación del Sabor! 🍔 Quiero hacer este pedido:', '', ...carrito.map(x => `• ${x.q} × ${x.n}${PRECIOS[x.n] ? ` — ${pesos(PRECIOS[x.n] * x.q)}` : ''}`)];
+  if (totalPesos()) partes.push('', `Total: ${pesos(totalPesos())}${carrito.some(x => !PRECIOS[x.n]) ? ' (más lo que falta confirmar)' : ''}`);
   const nombre = nombreEl.value.trim(), nota = notaEl.value.trim();
   if (nombre || nota) partes.push('');
   if (nombre) partes.push(`A nombre de: ${nombre}`);
@@ -447,6 +472,7 @@ const armarMensaje = () => {
 };
 const pintarEnvio = () => {
   const hay = carrito.length > 0;
+  const tot = totalPesos(); document.getElementById('pedido-total').innerHTML = tot ? `<span>Total</span><b>${pesos(tot)}</b>` : '';
   enviarEl.setAttribute('aria-disabled', String(!hay));
   enviarEl.href = hay ? `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(armarMensaje())}` : '#';
 };
