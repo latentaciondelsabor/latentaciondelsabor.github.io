@@ -458,7 +458,7 @@ const pintarLista = () => {
 };
 // el pedido sale armado por WhatsApp al local
 const totalPesos = () => carrito.reduce((a, x) => a + (PRECIOS[x.n] || 0) * x.q, 0);
-const WHATSAPP = '5493754498314';
+const WHATSAPP = '5493754531802';
 const enviarEl = document.getElementById('pedido-enviar'), nombreEl = document.getElementById('pedido-nombre'), notaEl = document.getElementById('pedido-nota');
 const armarMensaje = () => {
   const partes = ['¡Hola La tentación del Sabor! 🍔 Quiero hacer este pedido:', '', ...carrito.map(x => `• ${x.q} × ${x.n}${PRECIOS[x.n] ? ` — ${pesos(PRECIOS[x.n] * x.q)}` : ''}`)];
